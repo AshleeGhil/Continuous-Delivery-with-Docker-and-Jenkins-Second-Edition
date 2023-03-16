@@ -33,5 +33,22 @@ public class StepDefinitions {
     public void i_receive_as_a_result(String expectedResult) throws Throwable {
         assertEquals(expectedResult, result);
     }
+    
+    @Given("^I have two numbers to divide: (.*) and (.*)$")
+    public void i_have_two_numbers_div(String a, String b) throws Throwable {
+        this.a = a;
+        this.b = b;
+    }
+
+    @When("^the calculator divs them$")
+    public void the_calculator_divs_them() throws Throwable {
+        String url = String.format("%s/sum?a=%s&b=%s", server, a, b);
+        result = restTemplate.getForObject(url, String.class);
+    }
+
+    @Then("^I receive (.*) as a result of the division$")
+    public void i_receive_as_a_result_div(String expectedResult) throws Throwable {
+        assertEquals(expectedResult, result);
+    }
 
 }
